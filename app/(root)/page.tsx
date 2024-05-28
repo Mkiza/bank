@@ -3,23 +3,11 @@ import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 
-const Home = () => {
-  const loggedIn = {
-    firstName: "Ronald",
-    lastName: "Bagenda",
-    email: "test@gmail.com",
-    $id: "1",
-    userId: "1",
-    dwollaCustomerUrl: "1",
-    dwollaCustomerId: "1",
-    address1: "1",
-    city: "1",
-    state: "1",
-    postalCode: "1",
-    dateOfBirth: "1",
-    ssn: "1",
-    name: "Ronald Bagenda", // Add the 'name' property
-  };
+import { redirect } from "next/navigation";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
+
+const Home = async () => {
+  const loggedIn = await getLoggedInUser();
   return (
     <section className="home">
       <div className="home-content">
@@ -27,7 +15,7 @@ const Home = () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn?.firstName || "Guest"}
+            user={loggedIn?.name || "Guest"}
             subtext="Access and manage your account and transactions"
           />
           <TotalBalanceBox
